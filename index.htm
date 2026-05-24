@@ -1,685 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CreativeNest — Freelance Studio</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #f5f2eb;
-    --bg2: #ece8df;
-    --card: #ffffff;
-    --text: #1a1a18;
-    --muted: #5a5a56;
-    --accent: #c94f2c;
-    --accent2: #1f5c3e;
-    --border: rgba(26,26,24,0.12);
-    --tag-bg: #1a1a18;
-    --tag-text: #f5f2eb;
-  }
-  [data-theme="dark"] {
-    --bg: #151512;
-    --bg2: #1e1e1a;
-    --card: #252520;
-    --text: #f0ece2;
-    --muted: #9a9a92;
-    --accent: #e8714e;
-    --accent2: #4caf7d;
-    --border: rgba(240,236,226,0.12);
-    --tag-bg: #f0ece2;
-    --tag-text: #151512;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    transition: background 0.3s, color 0.3s;
-    overflow-x: hidden;
-  }
-  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 64px;
-    transition: background 0.3s;
-  }
-  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--accent); letter-spacing: -0.5px; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { font-size: 0.9rem; color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--text); }
-  .nav-right { display: flex; align-items: center; gap: 1rem; }
-  .toggle-btn {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 20px; cursor: pointer; padding: 5px 10px;
-    font-size: 0.8rem; color: var(--text); font-family: 'DM Sans', sans-serif;
-    display: flex; align-items: center; gap: 6px; transition: all 0.2s;
-  }
-  .toggle-btn:hover { background: var(--card); }
-  .cta-nav {
-    background: var(--accent); color: white; border: none;
-    padding: 8px 20px; border-radius: 20px; font-size: 0.85rem;
-    font-family: 'DM Sans', sans-serif; font-weight: 500;
-    cursor: pointer; text-decoration: none; transition: opacity 0.2s;
-  }
-  .cta-nav:hover { opacity: 0.88; }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding: 7rem 2rem 4rem;
-    position: relative; overflow: hidden;
-  }
-  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--tag-bg); color: var(--tag-text);
-    padding: 5px 14px; border-radius: 20px; font-size: 0.78rem;
-    font-weight: 500; letter-spacing: 0.04em; margin-bottom: 1.5rem;
-    text-transform: uppercase;
-  }
-  .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
-  .hero h1 {
-    font-size: clamp(3rem, 7vw, 5.5rem);
-    font-weight: 800; line-height: 1.0;
-    letter-spacing: -2px; margin-bottom: 1.5rem;
-  }
-  .hero h1 .line2 { color: var(--accent); display: block; }
-  .hero-sub {
-    font-size: 1.15rem; color: var(--muted); max-width: 520px;
-    line-height: 1.7; margin-bottom: 2.5rem; font-weight: 300;
-  }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--text); color: var(--bg);
-    padding: 14px 32px; border-radius: 30px;
-    font-family: 'Syne', sans-serif; font-weight: 600;
-    font-size: 0.95rem; text-decoration: none;
-    transition: opacity 0.2s; border: none; cursor: pointer;
-  }
-  .btn-primary:hover { opacity: 0.82; }
-  .btn-outline {
-    border: 1.5px solid var(--border); color: var(--text);
-    padding: 14px 32px; border-radius: 30px;
-    font-family: 'Syne', sans-serif; font-weight: 600;
-    font-size: 0.95rem; text-decoration: none;
-    background: transparent; cursor: pointer; transition: background 0.2s;
-  }
-  .btn-outline:hover { background: var(--bg2); }
-  .hero-deco {
-    position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
-    width: 480px; height: 480px; border-radius: 50%;
-    border: 60px solid var(--bg2); opacity: 0.6; pointer-events: none;
-  }
-  .hero-deco2 {
-    position: absolute; right: 80px; top: 30%;
-    width: 120px; height: 120px; border-radius: 50%;
-    background: var(--accent); opacity: 0.15; pointer-events: none;
-  }
-  .hero-stats {
-    display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap;
-  }
-  .stat-item .num {
-    font-family: 'Syne', sans-serif; font-size: 2rem;
-    font-weight: 800; color: var(--text);
-  }
-  .stat-item .lbl {
-    font-size: 0.82rem; color: var(--muted); margin-top: 2px;
-  }
-
-  /* SECTION GENERIC */
-  section { padding: 6rem 2rem; }
-  .section-inner { max-width: 1100px; margin: 0 auto; }
-  .section-tag {
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem;
-  }
-  .section-title {
-    font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
-    letter-spacing: -1px; margin-bottom: 1rem; line-height: 1.1;
-  }
-  .section-sub { color: var(--muted); max-width: 500px; line-height: 1.7; font-weight: 300; }
-
-  /* SERVICES */
-  #services { background: var(--bg2); }
-  .services-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5px; margin-top: 3.5rem;
-    border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden;
-  }
-  .service-card {
-    background: var(--card); padding: 2rem 1.8rem;
-    transition: background 0.2s; cursor: default;
-    display: flex; flex-direction: column; gap: 1rem;
-  }
-  .service-card:hover { background: var(--bg); }
-  .service-icon {
-    width: 48px; height: 48px; border-radius: 12px;
-    background: var(--accent); display: flex; align-items: center;
-    justify-content: center; font-size: 1.4rem;
-  }
-  .service-card h3 { font-size: 1.15rem; font-weight: 700; }
-  .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; font-weight: 300; }
-  .service-price {
-    font-family: 'Syne', sans-serif; font-weight: 700;
-    color: var(--accent); font-size: 0.95rem; margin-top: auto;
-  }
-
-  /* TEAM */
-  .team-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 2rem; margin-top: 3.5rem;
-  }
-  .team-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 2.2rem; transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .team-card:hover { transform: translateY(-4px); }
-  .team-avatar {
-    width: 72px; height: 72px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
-    color: white; margin-bottom: 1.2rem;
-  }
-  .team-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem; }
-  .team-role { font-size: 0.82rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
-  .team-bio { color: var(--muted); font-size: 0.9rem; line-height: 1.65; font-weight: 300; margin-bottom: 1.5rem; }
-  .team-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
-  .skill-tag {
-    background: var(--bg2); color: var(--muted);
-    padding: 4px 12px; border-radius: 20px; font-size: 0.78rem;
-    border: 1px solid var(--border);
-  }
-  .team-contacts { display: flex; flex-direction: column; gap: 8px; }
-  .contact-row {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.85rem; color: var(--muted);
-  }
-  .contact-row a { color: var(--text); text-decoration: none; transition: color 0.2s; }
-  .contact-row a:hover { color: var(--accent); }
-  .contact-icon {
-    width: 30px; height: 30px; border-radius: 8px;
-    background: var(--bg2); display: flex; align-items: center;
-    justify-content: center; font-size: 0.9rem; flex-shrink: 0;
-  }
-  .wa-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: #25D366; color: white;
-    padding: 10px 20px; border-radius: 25px;
-    text-decoration: none; font-size: 0.85rem; font-weight: 600;
-    margin-top: 1rem; transition: opacity 0.2s; font-family: 'DM Sans', sans-serif;
-  }
-  .wa-btn:hover { opacity: 0.88; }
-
-  /* PROCESS */
-  #process { background: var(--bg); }
-  .process-steps {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem; margin-top: 3.5rem; position: relative;
-  }
-  .process-step {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 1.8rem 1.5rem;
-    position: relative;
-  }
-  .step-num {
-    font-family: 'Syne', sans-serif; font-size: 3rem;
-    font-weight: 800; color: var(--border); line-height: 1;
-    margin-bottom: 0.8rem;
-  }
-  .process-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .process-step p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
-
-  /* WHY US */
-  #why { background: var(--bg2); }
-  .why-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem; margin-top: 3.5rem;
-  }
-  .why-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 1.8rem; transition: border-color 0.2s;
-  }
-  .why-card:hover { border-color: var(--accent); }
-  .why-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-  .why-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .why-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
-
-  /* CONTACT */
-  #contact { background: var(--text); color: var(--bg); }
-  #contact .section-tag { color: var(--accent); }
-  #contact .section-title { color: var(--bg); }
-  #contact .section-sub { color: rgba(240,236,226,0.6); }
-  .contact-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 4rem; margin-top: 3.5rem; align-items: start;
-  }
-  @media(max-width:700px){ .contact-grid { grid-template-columns: 1fr; } }
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .form-field {
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .form-field label { font-size: 0.8rem; color: rgba(240,236,226,0.6); text-transform: uppercase; letter-spacing: 0.06em; }
-  .form-field input, .form-field textarea, .form-field select {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 10px; padding: 12px 16px;
-    color: var(--bg); font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem; outline: none; transition: border-color 0.2s;
-    width: 100%;
-  }
-  .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(240,236,226,0.35); }
-  .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: var(--accent); }
-  .form-field select option { background: #1a1a18; }
-  .form-field textarea { min-height: 120px; resize: vertical; }
-  .submit-btn {
-    background: var(--accent); color: white;
-    border: none; padding: 14px 36px; border-radius: 30px;
-    font-family: 'Syne', sans-serif; font-weight: 700;
-    font-size: 0.95rem; cursor: pointer; transition: opacity 0.2s;
-    align-self: flex-start; margin-top: 0.5rem;
-  }
-  .submit-btn:hover { opacity: 0.88; }
-  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
-  .contact-person { display: flex; flex-direction: column; gap: 0.8rem; }
-  .contact-person-name {
-    font-family: 'Syne', sans-serif; font-weight: 700;
-    font-size: 1.2rem; color: var(--bg);
-  }
-  .contact-person-row {
-    display: flex; align-items: center; gap: 10px; font-size: 0.88rem;
-    color: rgba(240,236,226,0.65);
-  }
-  .contact-person-row a { color: rgba(240,236,226,0.85); text-decoration: none; transition: color 0.2s; }
-  .contact-person-row a:hover { color: var(--accent); }
-  .divider { height: 1px; background: rgba(255,255,255,0.1); }
-  .success-msg {
-    display: none; background: rgba(76,175,125,0.15);
-    border: 1px solid var(--accent2); border-radius: 10px;
-    padding: 14px 18px; font-size: 0.9rem; color: var(--accent2);
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--bg); padding: 2rem;
-    text-align: center; font-size: 0.82rem;
-    color: var(--muted); border-top: 1px solid var(--border);
-  }
-
-  /* MOBILE NAV */
-  @media(max-width: 640px){
-    .nav-links { display: none; }
-    .hero h1 { letter-spacing: -1px; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .hero-deco, .hero-deco2 { display: none; }
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .fade-up { animation: fadeUp 0.6s ease both; }
-  .fade-up-1 { animation-delay: 0.1s; }
-  .fade-up-2 { animation-delay: 0.2s; }
-  .fade-up-3 { animation-delay: 0.35s; }
-  .fade-up-4 { animation-delay: 0.5s; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreativeNest | Premium Creative Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --black:#050505;--black2:#0b0b0b;--card:#111111;--card2:#171717;--red:#e50914;--red2:#ff1f2d;--white:#f5f5f5;--muted:#a3a3a3;--line:rgba(255,255,255,.1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 10%,rgba(229,9,20,.24),transparent 28%),radial-gradient(circle at 80% 25%,rgba(255,31,45,.14),transparent 24%),linear-gradient(180deg,#050505,#090909 50%,#050505);z-index:-3}
+    body:after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 85%,transparent);z-index:-2}
+    .orb{position:fixed;border-radius:50%;filter:blur(40px);opacity:.5;z-index:-1;animation:float 9s ease-in-out infinite}.orb.one{width:260px;height:260px;background:var(--red);left:-70px;top:170px}.orb.two{width:200px;height:200px;background:#7a0008;right:-50px;bottom:160px;animation-delay:-3s}@keyframes float{50%{transform:translateY(-35px) translateX(20px)}}
+    nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(1120px,92%);z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border:1px solid var(--line);background:rgba(10,10,10,.72);backdrop-filter:blur(22px);border-radius:999px;box-shadow:0 18px 70px rgba(0,0,0,.45)}
+    .logo{font-weight:900;letter-spacing:-.04em;font-size:22px}.logo span{color:var(--red)}.navlinks{display:flex;gap:22px}.navlinks a{color:#ddd;text-decoration:none;font-size:14px;font-weight:600}.navlinks a:hover{color:var(--red2)}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;background:linear-gradient(135deg,var(--red),#8b0009);color:white;text-decoration:none;font-weight:800;border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 45px rgba(229,9,20,.25);transition:.25s}.btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 22px 70px rgba(229,9,20,.45)}.btn.ghost{background:rgba(255,255,255,.06);box-shadow:none;color:#fff}
+    section{padding:110px 6%}.hero{min-height:100vh;display:grid;place-items:center;text-align:center;position:relative;padding-top:160px}.tag{display:inline-flex;padding:9px 14px;border:1px solid rgba(229,9,20,.35);border-radius:999px;background:rgba(229,9,20,.08);color:#ffb3b7;font-weight:800;font-size:13px;margin-bottom:22px}.hero h1{font-size:clamp(48px,8vw,112px);line-height:.9;letter-spacing:-.08em;font-weight:950;text-transform:uppercase}.hero h1 span{display:block;color:var(--red);text-shadow:0 0 35px rgba(229,9,20,.45)}.hero p{max-width:740px;margin:26px auto;color:#c7c7c7;font-size:clamp(16px,2vw,21px);line-height:1.7}.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+    .floating-card{position:absolute;width:190px;padding:18px;border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.03));border:1px solid var(--line);backdrop-filter:blur(18px);box-shadow:0 30px 90px rgba(0,0,0,.45);transform-style:preserve-3d;animation:floatCard 6s ease-in-out infinite}.floating-card b{font-size:28px;color:var(--red2)}.floating-card small{display:block;color:#aaa;margin-top:6px}.f1{left:8%;top:28%}.f2{right:8%;bottom:18%;animation-delay:-2s}@keyframes floatCard{50%{transform:translateY(-24px) rotateX(8deg) rotateY(-8deg)}}
+    .wrap{max-width:1180px;margin:auto}.section-title{font-size:clamp(34px,5vw,64px);letter-spacing:-.06em;line-height:1;font-weight:950;margin-bottom:18px}.section-title span{color:var(--red)}.section-sub{color:var(--muted);max-width:680px;line-height:1.7;margin-bottom:45px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:30px;padding:28px;min-height:220px;position:relative;overflow:hidden;transition:.3s;transform-style:preserve-3d}.card:before{content:"";position:absolute;inset:-2px;background:radial-gradient(circle at top right,rgba(229,9,20,.33),transparent 35%);opacity:0;transition:.3s}.card:hover{transform:translateY(-10px) rotateX(4deg);border-color:rgba(229,9,20,.45);box-shadow:0 28px 90px rgba(0,0,0,.45)}.card:hover:before{opacity:1}.card h3{font-size:24px;margin-bottom:12px;position:relative}.card p{color:#aaa;line-height:1.7;position:relative}.icon{width:48px;height:48px;border-radius:18px;display:grid;place-items:center;background:rgba(229,9,20,.13);color:var(--red2);font-size:24px;margin-bottom:20px;position:relative}
+    .team{grid-template-columns:repeat(2,1fr)}.team-card{min-height:300px}.role{color:var(--red2);font-weight:800;margin:8px 0 18px}.contact-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.mini{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;text-decoration:none;font-size:14px;font-weight:800}.mini:hover{background:rgba(229,9,20,.18);border-color:rgba(229,9,20,.5)}
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.step{padding:26px;border-left:2px solid var(--red);background:rgba(255,255,255,.045);border-radius:24px}.step b{font-size:34px;color:var(--red2)}.step h3{margin:16px 0 8px}.step p{color:#aaa;line-height:1.6}
+    .contact{background:linear-gradient(135deg,rgba(229,9,20,.13),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:42px;padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}.socials{display:grid;gap:14px}.social{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:22px;color:#fff;text-decoration:none;font-weight:800}.social span{color:#aaa;font-weight:600}.social:hover{border-color:rgba(229,9,20,.7);transform:translateX(6px);background:rgba(229,9,20,.11)}
+    footer{text-align:center;padding:42px;color:#777;border-top:1px solid var(--line)}
+    .reveal{opacity:0;transform:translateY(30px);transition:1s}.reveal.show{opacity:1;transform:translateY(0)}
+    @media(max-width:900px){.navlinks{display:none}.grid,.team,.process,.contact{grid-template-columns:1fr}.floating-card{display:none}.hero{text-align:left;place-items:end start}.hero-actions{justify-content:flex-start}section{padding:90px 5%}.contact{padding:28px}.hero h1{font-size:54px}}
+  </style>
 </head>
-<body data-theme="light">
+<body>
+  <div class="orb one"></div><div class="orb two"></div>
+  <nav>
+    <div class="logo">Creative<span>Nest</span></div>
+    <div class="navlinks"><a href="#services">Services</a><a href="#team">Team</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
+    <a class="btn" href="https://wa.me/919953010972" target="_blank">Start Project</a>
+  </nav>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">CreativeNest✦</div>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#why">Why Us</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="nav-right">
-    <button class="toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
-    <a href="#contact" class="cta-nav">Hire Us</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-deco"></div>
-  <div class="hero-deco2"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow fade-up fade-up-1"><span class="dot"></span> Freelance Creative Studio · India</div>
-    <h1 class="fade-up fade-up-2">
-      We Create Content
-      <span class="line2">That Converts.</span>
-    </h1>
-    <p class="hero-sub fade-up fade-up-3">
-      Social media management, short-form video editing, copywriting, graphic design, and more — done by real humans who care about your brand.
-    </p>
-    <div class="hero-btns fade-up fade-up-4">
-      <a href="#services" class="btn-primary">Explore Services</a>
-      <a href="#contact" class="btn-outline">Get a Free Quote</a>
-    </div>
-    <div class="hero-stats fade-up fade-up-4">
-      <div class="stat-item"><div class="num">50+</div><div class="lbl">Clients Served</div></div>
-      <div class="stat-item"><div class="num">2</div><div class="lbl">Expert Creators</div></div>
-      <div class="stat-item"><div class="num">100%</div><div class="lbl">Remote Ready</div></div>
-      <div class="stat-item"><div class="num">3+</div><div class="lbl">Years Experience</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="section-inner">
-    <div class="section-tag">What We Do</div>
-    <h2 class="section-title">Services We Offer</h2>
-    <p class="section-sub">From a single post to a full content strategy — we handle everything creative, so you can focus on growing your business.</p>
-
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">📱</div>
-        <h3>Social Media Management</h3>
-        <p>Full management of Instagram, Facebook & LinkedIn. Content calendar, captions, scheduling and analytics included.</p>
-        <div class="service-price">Starting ₹5,000 / month</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎬</div>
-        <h3>Short-Form Video Editing</h3>
-        <p>Reels, YouTube Shorts & TikToks edited with captions, transitions, music and brand colours using CapCut & Premiere.</p>
-        <div class="service-price">Starting ₹500 / video</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">✍️</div>
-        <h3>Freelance Copywriting</h3>
-        <p>Blog posts, website copy, product descriptions, email newsletters — written to rank and convert.</p>
-        <div class="service-price">Starting ₹2 / word</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎨</div>
-        <h3>Graphic Design & Templates</h3>
-        <p>Canva and Illustrator-based designs: social posts, flyers, logos, presentation decks and Etsy-ready template packs.</p>
-        <div class="service-price">Starting ₹800 / design</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📧</div>
-        <h3>Email Newsletter Writing</h3>
-        <p>Niche-specific weekly newsletters on Substack or Mailchimp. Grow subscribers and monetise your list with quality content.</p>
-        <div class="service-price">Starting ₹3,000 / newsletter</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎙️</div>
-        <h3>Faceless YouTube Content</h3>
-        <p>Script, voiceover coordination, stock footage selection and editing for faceless YouTube channels. Fully turnkey.</p>
-        <div class="service-price">Starting ₹4,000 / video</div>
+  <section class="hero">
+    <div class="floating-card f1"><b>50+</b><small>Creative Projects</small></div>
+    <div class="floating-card f2"><b>3D</b><small>Premium Experience</small></div>
+    <div>
+      <div class="tag">Netflix-black aesthetic creative studio</div>
+      <h1>We Create <span>Content That Converts</span></h1>
+      <p>CreativeNest builds sleek designs, sharp videos, scroll-stopping posts, and brand content that makes people notice, trust, and contact you.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#services">Explore Services</a>
+        <a class="btn ghost" href="#contact">Get Free Quote</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TEAM -->
-<section id="team">
-  <div class="section-inner">
-    <div class="section-tag">Our Team</div>
-    <h2 class="section-title">Meet the Creators</h2>
-    <p class="section-sub">Two passionate professionals with complementary skills ready to bring your vision to life.</p>
-
-    <div class="team-grid">
-      <!-- Satyam -->
-      <div class="team-card">
-        <div class="team-avatar">SC</div>
-        <h3>Satyam Chaubey</h3>
-        <div class="team-role">Content Strategist & Video Editor</div>
-        <p class="team-bio">Satyam specialises in short-form video production, social media strategy and copywriting. He has helped 30+ small businesses build their online presence from scratch with zero-budget creative systems.</p>
-        <div class="team-skills">
-          <span class="skill-tag">Video Editing</span>
-          <span class="skill-tag">Content Strategy</span>
-          <span class="skill-tag">Reels</span>
-          <span class="skill-tag">Copywriting</span>
-          <span class="skill-tag">CapCut</span>
-        </div>
-        <div class="team-contacts">
-          <div class="contact-row">
-            <div class="contact-icon">📧</div>
-            <a href="mailto:satyamchaubey471@gmail.com">satyamchaubey471@gmail.com</a>
-          </div>
-          <div class="contact-row">
-            <div class="contact-icon">📞</div>
-            <a href="tel:+919953010972">+91 99530 10972</a>
-          </div>
-        </div>
-        <a class="wa-btn" href="https://wa.me/919953010972?text=Hi%20Satyam%2C%20I%20found%20your%20profile%20on%20CreativeNest%20and%20would%20like%20to%20discuss%20a%20project!" target="_blank">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp Satyam
-        </a>
-      </div>
-
-      <!-- Shalini -->
-      <div class="team-card">
-        <div class="team-avatar" style="background: linear-gradient(135deg, #c94f2c, #8a2be2);">SU</div>
-        <h3>Shalini Upadhyay</h3>
-        <div class="team-role">Graphic Designer & Brand Consultant</div>
-        <p class="team-bio">Shalini is a graphic designer and brand consultant who runs the Shalini Dribble Academy. She creates stunning visual identities, social media templates and educational design content for brands and creators across India.</p>
-        <div class="team-skills">
-          <span class="skill-tag">Graphic Design</span>
-          <span class="skill-tag">Canva</span>
-          <span class="skill-tag">Brand Identity</span>
-          <span class="skill-tag">Templates</span>
-          <span class="skill-tag">Education</span>
-        </div>
-        <div class="team-contacts">
-          <div class="contact-row">
-            <div class="contact-icon">📧</div>
-            <a href="mailto:shalinidribbleacademy11@gmail.com">shalinidribbleacademy11@gmail.com</a>
-          </div>
-          <div class="contact-row">
-            <div class="contact-icon">📞</div>
-            <a href="tel:+918448787382">+91 84487 87382</a>
-          </div>
-        </div>
-        <a class="wa-btn" href="https://wa.me/918448787382?text=Hi%20Shalini%2C%20I%20found%20your%20profile%20on%20CreativeNest%20and%20would%20like%20to%20discuss%20a%20project!" target="_blank">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp Shalini
-        </a>
+  <section id="services" class="reveal">
+    <div class="wrap">
+      <h2 class="section-title">Services with <span>cinematic impact</span></h2>
+      <p class="section-sub">From social media management to premium video edits, we handle the creative side so your business looks sharp online.</p>
+      <div class="grid">
+        <div class="card"><div class="icon">✦</div><h3>Social Media Management</h3><p>Content planning, posting, captions, profile optimization, and growth-focused strategy.</p></div>
+        <div class="card"><div class="icon">▶</div><h3>Video Editing</h3><p>Reels, shorts, cinematic edits, captions, transitions, hooks, and high-retention storytelling.</p></div>
+        <div class="card"><div class="icon">✎</div><h3>Copywriting</h3><p>Powerful captions, ad copy, bios, landing page text, and brand messaging.</p></div>
+        <div class="card"><div class="icon">◆</div><h3>Graphic Design</h3><p>Posters, thumbnails, carousels, brand creatives, and premium visual identity.</p></div>
+        <div class="card"><div class="icon">✉</div><h3>Email Newsletters</h3><p>Clean email content that builds trust and keeps your audience connected.</p></div>
+        <div class="card"><div class="icon">☄</div><h3>Faceless YouTube</h3><p>Scripts, editing, thumbnails, and full content packaging for faceless channels.</p></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROCESS -->
-<section id="process">
-  <div class="section-inner">
-    <div class="section-tag">How It Works</div>
-    <h2 class="section-title">Our Simple Process</h2>
-    <p class="section-sub">From first message to final delivery — straightforward, fast and transparent.</p>
-
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-num">01</div>
-        <h4>Discovery Call</h4>
-        <p>Tell us about your brand, goals and budget. We'll suggest the best service package for you.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">02</div>
-        <h4>Proposal & Quote</h4>
-        <p>We send a clear proposal with pricing, timelines and deliverables — no hidden charges.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">03</div>
-        <h4>Creation</h4>
-        <p>Our team gets to work. You get regular updates and can request revisions at any stage.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-num">04</div>
-        <h4>Delivery & Launch</h4>
-        <p>We deliver the final files or go live with your content — and stay on for support.</p>
+  <section id="team" class="reveal">
+    <div class="wrap">
+      <h2 class="section-title">Meet the <span>creators</span></h2>
+      <p class="section-sub">Two creative minds. One goal: making your brand look premium and unforgettable.</p>
+      <div class="grid team">
+        <div class="card team-card"><h3>Satyam Chaubey</h3><div class="role">Content Strategist & Video Editor</div><p>Handles strategy, video editing, content ideas, writing, and client communication.</p><div class="contact-row"><a class="mini" href="mailto:satyamchaubey471@gmail.com">Email</a><a class="mini" href="https://wa.me/919953010972" target="_blank">WhatsApp</a><a class="mini" href="https://instagram.com/trigger_writtens" target="_blank">Instagram</a></div></div>
+        <div class="card team-card"><h3>Shalini Upadhyay</h3><div class="role">Graphic Designer & Brand Consultant</div><p>Handles designs, visual identity, brand direction, and premium creative presentation.</p><div class="contact-row"><a class="mini" href="mailto:shalinidribbleacademy11@gmail.com">Email</a><a class="mini" href="https://wa.me/918448787382" target="_blank">WhatsApp</a></div></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- WHY US -->
-<section id="why">
-  <div class="section-inner">
-    <div class="section-tag">Why CreativeNest</div>
-    <h2 class="section-title">What Sets Us Apart</h2>
-    <p class="section-sub">We're not an agency. We're two real creators who treat your brand like our own.</p>
-
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">⚡</div>
-        <h4>Fast Turnaround</h4>
-        <p>Most projects delivered in 2–5 business days. Rush delivery available.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">💸</div>
-        <h4>Budget-Friendly</h4>
-        <p>Transparent pricing built for Indian small businesses and startups. No agency mark-ups.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🔁</div>
-        <h4>Unlimited Revisions</h4>
-        <p>We iterate until you love the result. Your satisfaction is non-negotiable.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🤝</div>
-        <h4>Direct Communication</h4>
-        <p>No middlemen — you talk directly to the creator working on your project via WhatsApp.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">📈</div>
-        <h4>Results-Driven</h4>
-        <p>Every piece of content is crafted with your growth metrics in mind — not just aesthetics.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🇮🇳</div>
-        <h4>Made in India</h4>
-        <p>We understand the Indian market, regional audiences and what resonates locally.</p>
+  <section id="process" class="reveal">
+    <div class="wrap">
+      <h2 class="section-title">Our <span>process</span></h2>
+      <div class="process">
+        <div class="step"><b>01</b><h3>Discuss</h3><p>We understand your business and goals.</p></div>
+        <div class="step"><b>02</b><h3>Plan</h3><p>We create a strategy and content direction.</p></div>
+        <div class="step"><b>03</b><h3>Create</h3><p>We design, edit, write, and package content.</p></div>
+        <div class="step"><b>04</b><h3>Deliver</h3><p>You get polished final work ready to use.</p></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-inner">
-    <div class="section-tag">Get In Touch</div>
-    <h2 class="section-title">Let's Work Together</h2>
-    <p class="section-sub">Fill in the form and we'll get back to you within 24 hours. Or message us directly on WhatsApp!</p>
-
-    <div class="contact-grid">
-      <div class="contact-form">
-        <div class="form-field">
-          <label>Your Name</label>
-          <input type="text" id="fname" placeholder="Rahul Sharma" />
-        </div>
-        <div class="form-field">
-          <label>Email Address</label>
-          <input type="email" id="femail" placeholder="rahul@example.com" />
-        </div>
-        <div class="form-field">
-          <label>Service Interested In</label>
-          <select id="fservice">
-            <option value="">Select a service...</option>
-            <option>Social Media Management</option>
-            <option>Short-Form Video Editing</option>
-            <option>Freelance Copywriting</option>
-            <option>Graphic Design & Templates</option>
-            <option>Email Newsletter Writing</option>
-            <option>Faceless YouTube Content</option>
-            <option>Multiple / Not Sure</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label>Your Message</label>
-          <textarea id="fmsg" placeholder="Tell us about your project, goals and budget..."></textarea>
-        </div>
-        <div class="success-msg" id="successMsg">✅ Thanks! We'll get back to you within 24 hours.</div>
-        <button class="submit-btn" onclick="submitForm()">Send Message →</button>
+  <section id="contact" class="reveal">
+    <div class="wrap contact">
+      <div>
+        <h2 class="section-title">Let’s build your <span>brand</span></h2>
+        <p class="section-sub">Message us directly and tell us what you want to create. We’ll help you turn it into a premium online presence.</p>
+        <div class="hero-actions"><a class="btn" href="https://wa.me/919953010972" target="_blank">Message Satyam</a><a class="btn ghost" href="https://wa.me/918448787382" target="_blank">Message Shalini</a></div>
       </div>
-
-      <div class="contact-info">
-        <div class="contact-person">
-          <div class="contact-person-name">Satyam Chaubey</div>
-          <div class="contact-person-row">📧 <a href="mailto:satyamchaubey471@gmail.com">satyamchaubey471@gmail.com</a></div>
-          <div class="contact-person-row">📞 <a href="tel:+919953010972">+91 99530 10972</a></div>
-          <a class="wa-btn" style="align-self:flex-start;" href="https://wa.me/919953010972?text=Hi%20Satyam%2C%20I%20found%20your%20profile%20on%20CreativeNest%20and%20would%20like%20to%20discuss%20a%20project!" target="_blank">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Chat on WhatsApp
-          </a>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="contact-person">
-          <div class="contact-person-name">Shalini Upadhyay</div>
-          <div class="contact-person-row">📧 <a href="mailto:shalinidribbleacademy11@gmail.com">shalinidribbleacademy11@gmail.com</a></div>
-          <div class="contact-person-row">📞 <a href="tel:+918448787382">+91 84487 87382</a></div>
-          <a class="wa-btn" style="align-self:flex-start;" href="https://wa.me/918448787382?text=Hi%20Shalini%2C%20I%20found%20your%20profile%20on%20CreativeNest%20and%20would%20like%20to%20discuss%20a%20project!" target="_blank">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Chat on WhatsApp
-          </a>
-        </div>
+      <div class="socials">
+        <a class="social" href="https://instagram.com/trigger_writtens" target="_blank">Instagram <span>@trigger_writtens</span></a>
+        <a class="social" href="mailto:satyamchaubey471@gmail.com">Satyam Email <span>Send mail</span></a>
+        <a class="social" href="mailto:shalinidribbleacademy11@gmail.com">Shalini Email <span>Send mail</span></a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 CreativeNest · Satyam Chaubey & Shalini Upadhyay · Made in India 🇮🇳</p>
-  <p style="margin-top:6px;">satyamchaubey471@gmail.com · upadhyayshalini645@gmail.com</p>
-</footer>
-
-<script>
-  function toggleTheme() {
-    const body = document.body;
-    const btn = document.getElementById('themeBtn');
-    if (body.dataset.theme === 'light') {
-      body.dataset.theme = 'dark';
-      btn.textContent = '☀️ Light';
-    } else {
-      body.dataset.theme = 'light';
-      btn.textContent = '🌙 Dark';
-    }
-  }
-
-  function submitForm() {
-    const name = document.getElementById('fname').value.trim();
-    const email = document.getElementById('femail').value.trim();
-    const service = document.getElementById('fservice').value;
-    const msg = document.getElementById('fmsg').value.trim();
-
-    if (!name || !email || !service || !msg) {
-      alert('Please fill in all fields before submitting.');
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
-    // Build WhatsApp message and open
-    const waMsg = encodeURIComponent(
-      `Hi! I contacted you through CreativeNest.\n\nName: ${name}\nEmail: ${email}\nService: ${service}\nMessage: ${msg}`
-    );
-    window.open(`https://wa.me/919953010972?text=${waMsg}`, '_blank');
-
-    document.getElementById('successMsg').style.display = 'block';
-    document.getElementById('fname').value = '';
-    document.getElementById('femail').value = '';
-    document.getElementById('fservice').value = '';
-    document.getElementById('fmsg').value = '';
-  }
-</script>
+  <footer>© 2026 CreativeNest. Built with cinematic black-red aesthetic.</footer>
+  <script>
+    const revealEls=document.querySelectorAll('.reveal');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})},{threshold:.14});
+    revealEls.forEach(el=>obs.observe(el));
+    document.addEventListener('mousemove',e=>{const x=(e.clientX/window.innerWidth-.5)*18;const y=(e.clientY/window.innerHeight-.5)*18;document.querySelectorAll('.floating-card').forEach(c=>c.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`)});
+  </script>
 </body>
 </html>
